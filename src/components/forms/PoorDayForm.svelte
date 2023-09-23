@@ -59,22 +59,33 @@
     const handleQuestionSubmit = (/** @type {number} */ questionNumber) => {
         if (questionNumber === 1) {
             firstQuestionVisible = false;
-            secondQuestionVisible = true;
+            setTimeout(() => {
+                secondQuestionVisible = true;
+            }, 1300);
             thirdQuestionVisible = false;
 
         } else if (questionNumber === 2) {
             firstQuestionVisible = false;
-            secondQuestionVisible = true;
+            setTimeout(() => {
+                secondQuestionVisible = true;
+            }, 1300);
             thirdQuestionVisible = false;
 
         } else if (questionNumber === 3) {
             firstQuestionVisible = false;
             secondQuestionVisible = false;
-            thirdQuestionVisible = true;
+            setTimeout(() => {
+                thirdQuestionVisible = true;
+            }, 1300);
         }
 
-        $progressBarPercent += 25;
+        progressBarPercent.update(t => t += 25);
     }
+
+        const handleFormSubmit = () => {
+            const dispatch = createEventDispatcher();
+            dispatch("submit");
+        }
 
 
 </script>
@@ -100,7 +111,7 @@
 
 {#if thirdQuestionVisible}
     <FormComponent 
-        on:submit={() => alert('Free Money')}
+        on:submit={() => handleFormSubmit()} 
         questionText={questions.third.question} 
         formActionComponent={TextBoxThird} 
         disabled={thirdQuestionDisabled}

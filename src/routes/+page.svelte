@@ -24,7 +24,9 @@
     const signIn = () => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
-            .then(s => console.log)
+            .then(s => {
+                isLoggedIn.update(t => true)
+            })
             .catch(err => console.log)
     }
 

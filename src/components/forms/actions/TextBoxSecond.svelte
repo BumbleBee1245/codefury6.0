@@ -1,6 +1,7 @@
 <script>
 // @ts-nocheck
 
+    import { fade } from "svelte/transition";
     import { second } from "../../../store";
     let obj = {};
     let inputValue = '';
@@ -25,7 +26,7 @@
 
 </script>
 
-<div class="container">
+<div class="container" transition:fade>
     <textarea
       class="textbox"
       class:blue-border={isBlueBorder}

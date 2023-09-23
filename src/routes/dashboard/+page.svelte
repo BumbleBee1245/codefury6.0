@@ -1,5 +1,5 @@
 <script>
-    import { ratingScale, first, second, third, progressBarPercent, ratingResponse } from "../../store";
+    import { ratingScale, first, second, third, progressBarPercent, ratingResponse, isLoggedIn } from "../../store";
 
     import FormComponent from "../../components/forms/FormComponent.svelte"
     import ScaleRating from "../../components/forms/actions/ScaleRating.svelte";
@@ -8,6 +8,20 @@
     import PoorDayForm from "../../components/forms/PoorDayForm.svelte"
     import NormalDayForm from "../../components/forms/NormalDayForm.svelte"
     import GoodDayForm from "../../components/forms/GoodDayForm.svelte"
+    import { goto } from "$app/navigation";
+
+    let loadPage = false;
+
+    onMount(() => {
+        if (!$isLoggedIn) {
+            goto('/');
+        } else {
+            setTimeout(() => {
+                loadPage = true
+            }, 2300);
+        }
+    })
+
 
     /**
      * @type {number}
@@ -31,8 +45,9 @@
     $: showOkayForm = false;
     $: showGoodForm = false;
 
-    $: containerWidth = 0;
-    progressBarPercent.subscribe(t => containerWidth = t);
+    let containerWidth = 0;
+    // $: containerWidth = 0;
+    // progressBarPercent.subscribe(t => containerWidth = t);
 
 
     const handleSubmitRating = () => {
@@ -81,49 +96,33 @@
     //     }
     // }
 
-    // const aboveEightQuestions = {
-    //     first : {
-    //         question: `Can you describe any challenges or stressors you encountered today, even though it was a good day overall?`,
-    //         disabled: q1Response,
-    //         formActionComponent: TextBox
-    //     },
-
-    //     second : {
-    //         question: `What are you looking forward to in the upcoming days?`,
-    //         disabled: q2Response,
-    //         formActionComponent: TextBox
-    //     },
-
-    //     third: {
-    //         question: `Is there anything you'd like to share or discuss related to your day or your current state of mind?`,
-    //         disabled: q3Response,
-    //         formActionComponent: TextBox,
-    //     }
-
-    // }
-
     $: {
         if (isRatingResponseDone) {
-            if (ratingVal <= 3) {
-                showPoorForm = true;
-                showGoodForm = false;
-                showOkayForm = false;
-            } 
+            setTimeout(() => {
+                if (ratingVal <= 3) {
+                    showPoorForm = true;
+                    showGoodForm = false;
+                    showOkayForm = false;
+                } 
 
-            else if (ratingVal <= 7) {
-                showPoorForm = false;
-                showGoodForm = false;
-                showOkayForm = true;
+                else if (ratingVal <= 7) {
+                    showPoorForm = false;
+                    showGoodForm = false;
+                    showOkayForm = true;
 
-            } else {
-                showPoorForm = false;
-                showGoodForm = true;
-                showOkayForm = false;
-            }
+                } else {
+                    showPoorForm = false;
+                    showGoodForm = true;
+                    showOkayForm = false;
+                }
+            }, 1000);
+
         }
     }
 
-
+    const handleFormSubmit = () => {
+        alert("DONE");
+    }
     
 </script>
 
@@ -135,6 +134,7 @@
 
 {/if} -->
 
+{#if loadPage}
 <form>
 
     <!-- initial day's rating -->
@@ -147,7 +147,7 @@
         />
     {:else}
         {#if showPoorForm}
-            <PoorDayForm />
+            <PoorDayForm on:submit={handleFormSubmit}/>
         {/if}
 
         {#if showOkayForm}
@@ -162,6 +162,7 @@
     <div class="progress-bar" style="width: {containerWidth}%">
     </div>
 </form>
+{/if}
 
 <style>
     * {

@@ -10,17 +10,16 @@
     import cfg from "../firebase/config"
     import { goto } from "$app/navigation";
 
-    const app = initializeApp(cfg);
-    const auth = getAuth();
 
     onMount(() => {
+        const app = initializeApp(cfg)
         const auth = getAuth();
+        console.log(auth);
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 goto('/')
                 isLoggedIn.update(() => false)
             } else {
-                goto('/dashboard')
                 isLoggedIn.update(() => true)
             }
         })

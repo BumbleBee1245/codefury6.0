@@ -4,6 +4,7 @@
     import { first } from "../../../store";
     let obj = {};
     let inputValue = '';
+    import { fade } from "svelte/transition";
     $: isBlueBorder = false;
 
     const handleInput = (e) => {
@@ -25,7 +26,7 @@
 
 </script>
 
-<div class="container">
+<div class="container" transition:fade>
     <textarea
       class="textbox"
       class:blue-border={isBlueBorder}
