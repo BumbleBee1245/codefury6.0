@@ -6,13 +6,6 @@ export default {
     extend: {
       'satoshi' : ['Satoshi-Variable', ...defaultTheme.fontFamily.sans]
     },
-
-    fontSize: {
-      title : '48px',
-      sub: '22px',
-      body : '14px'
-    },
-
     colors : {
       lake: '#79BEEE',
       indigo: '##8A84E2',
