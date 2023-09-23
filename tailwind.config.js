@@ -12,6 +12,7 @@ export default {
       breeze: '#B7D3F2',
       light: '#FAFAFA',
       dark: "#222222",
+      vanta: '#0a0a0a',
     }
   },
   plugins: [],

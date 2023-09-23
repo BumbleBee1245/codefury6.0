@@ -20,7 +20,6 @@
         @apply flex;
         @apply items-center;
         @apply justify-between;
-        @apply bg-lake;
         @apply px-4;
         @apply mb-8;
     }

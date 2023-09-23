@@ -173,7 +173,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
 	line-height: 1;
-    @apply bg-light;
+    @apply bg-vanta;
 }
 ol, ul {
 	list-style: none;
@@ -193,5 +193,5 @@ table {
 
 * {
     font-family: 'Satoshi-Light';
-    @apply text-breeze;
+    @apply text-light;
 }
