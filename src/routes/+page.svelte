@@ -1,10 +1,8 @@
 <script>
     import { fly, blur } from "svelte/transition";
     import { onMount } from "svelte";
-    import { quintOut } from "svelte/easing";
     import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
     import { isLoggedIn } from "../store";
-    import Button from "../components/Button.svelte";
     import { goto } from "$app/navigation";
     import { initializeApp } from "firebase/app";
     import cfg from "../firebase/config"

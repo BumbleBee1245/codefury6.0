@@ -4,9 +4,11 @@ export const isLoggedIn = writable(false);
 export const uid = writable('');
 
 export const ratingScale = writable(0);
-export const specificMoments = writable([]);
-export const formResponse = writable({
-    first: writable(''),
-    second: writable(''),
-    third: writable(''),
-});
+
+
+export const first = writable('')
+export const second = writable('')
+export const third = writable('')
+export const progressBarPercent = writable(0)
+
+export const ratingResponse = writable(false)

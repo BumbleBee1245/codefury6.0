@@ -20,7 +20,7 @@
                 goto('/')
                 isLoggedIn.update(() => false)
             } else {
-                goto('/')
+                goto('/dashboard')
                 isLoggedIn.update(() => true)
             }
         })
