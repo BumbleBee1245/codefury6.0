@@ -6,6 +6,7 @@
     import FormComponent from "../../components/forms/FormComponent.svelte"
     import ScaleRating from "../../components/forms/actions/ScaleRating.svelte";
     import TextBox from "../../components/forms/actions/TextBox.svelte";
+    import { onDestroy, onMount } from "svelte";
 
     /**
      * @type {number}
@@ -85,6 +86,7 @@
         }
 
     }
+
 
     
 </script>
