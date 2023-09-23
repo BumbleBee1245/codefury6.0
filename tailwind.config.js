@@ -8,7 +8,7 @@ export default {
     },
     colors : {
       lake: '#79BEEE',
-      indigo: '##8A84E2',
+      indigo: '#8A84E2',
       breeze: '#B7D3F2',
       light: '#FAFAFA',
       dark: "#222222",
