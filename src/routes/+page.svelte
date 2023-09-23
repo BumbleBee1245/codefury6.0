@@ -2,20 +2,50 @@
     import { fly, blur } from "svelte/transition";
     import { onMount } from "svelte";
     import { quintOut } from "svelte/easing";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+    import { isLoggedIn } from "../store";
     import Button from "../components/Button.svelte";
+    import { goto } from "$app/navigation";
+    import { initializeApp } from "firebase/app";
+    import cfg from "../firebase/config"
+
+    const app = initializeApp(cfg)
 
     let animsReady = false;
     onMount(() => animsReady = true);
     const animDuration = 800;
+
+    /**
+     * @type {boolean}
+     */
+    let user;
+    isLoggedIn.subscribe((t) => user = t);
+
+    const auth = getAuth(app);
+
+    const signIn = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then(s => console.log)
+            .catch(err => console.log)
+    }
+
+    const handleClick = () => {
+        if (user) {
+            goto('/dashboard');
+        } else {
+            signIn();
+        }
+    }
 
 </script>
 
 <main>
     {#if animsReady}
     <div class="flex flex-col gap-8 items-center justify-center">
-            <h1 class="text-6xl w-fit" transition:blur={{ duration: animDuration, amount: 10}}>You're one step <b>closer.</b></h1>
+        <h1 class="text-6xl w-fit" transition:blur={{ duration: animDuration, amount: 10}}>You're one step <b>closer.</b></h1>
 
-        <button class="btn" transition:fly={{delay: animDuration * 1, duration: animDuration, x: -20, y: 0}}> Sign Up </button>
+            <button on:click={handleClick} class="btn" transition:fly={{delay: animDuration * 1, duration: animDuration, x: -20, y: 0}}> {user ? "Let's introspect" : "Sign In"}</button>
     </div>
 
     <div class="flex z-10" transition:fly={{delay: animDuration * 1.5, duration: animDuration, y: -20}}>

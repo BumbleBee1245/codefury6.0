@@ -1,11 +1,30 @@
 <script>
     import { fly } from "svelte/transition";
-    import { onMount } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
     import { quintIn } from "svelte/easing";
+    import { getAuth } from "firebase/auth";
+    import { isLoggedIn, uid } from "../store";
+    import { goto } from "$app/navigation";
+
+    const dispatch = createEventDispatcher();
+
+    /**
+     * @type {boolean}
+     */
+    let loggedIn;
+    isLoggedIn.subscribe((t) => loggedIn = t);
 
     $: menuIsOpen = false;
     const handleClick = () => {
         menuIsOpen = !menuIsOpen;
+    }
+
+    const handleSignOut = () => {
+        const auth = getAuth();
+        uid.set("")
+        isLoggedIn.update(() => false)
+        auth.signOut()
+        goto('/')
     }
 
 </script>
@@ -31,6 +50,9 @@
             <ul class="text-dark">
                 <li class="text-dark"> <a href="/">Dashboard</a></li>
                 <li> <a href="/">My Profile</a></li>
+                {#if loggedIn}
+                    <button class="btn" on:click={handleSignOut} id="logout">Logout</button>
+                {/if}
             </ul>
         </div>
     {/if}
@@ -85,6 +107,16 @@
     }
 
     svg {
+        @apply text-light;
+    }
+
+    .btn {
+        @apply flex;
+        @apply items-center;
+        @apply justify-center;
+        @apply px-4;
+        @apply py-2;
+        @apply bg-dark;
         @apply text-light;
     }
 

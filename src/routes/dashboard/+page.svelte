@@ -104,3 +104,9 @@
         disabled={ratingVal === 0 ? true : false}
     />
 </form>
+
+<style>
+    * {
+        @apply text-light;
+    }
+</style>
