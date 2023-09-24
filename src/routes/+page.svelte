@@ -2,22 +2,29 @@
     import { fly, blur } from "svelte/transition";
     import { onMount } from "svelte";
     import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-    import { isLoggedIn } from "../store";
+    import { isLoggedIn, uid, first, second, third, ratingScale } from "../store";
     import { goto } from "$app/navigation";
     import { initializeApp } from "firebase/app";
     import cfg from "../firebase/config"
 
     const app = initializeApp(cfg)
-
-    let animsReady = false;
-    onMount(() => animsReady = true);
-    const animDuration = 800;
-
     /**
      * @type {boolean}
      */
+
     let user;
     isLoggedIn.subscribe((t) => user = t);
+
+    let animsReady = false;
+    onMount(() => {
+        animsReady = true
+        first.set("");
+        second.set("");
+        third.set("");
+        ratingScale.set(0)
+    });
+
+    const animDuration = 800;
 
     const auth = getAuth(app);
 
@@ -25,7 +32,9 @@
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
             .then(s => {
-                isLoggedIn.update(t => true)
+                isLoggedIn.set(true)
+                uid.set(s.user.uid)
+                console.log(s);
             })
             .catch(err => console.log)
     }

@@ -6,6 +6,7 @@
 
     import { first, second, third, progressBarPercent} from "../../store";
     import { createEventDispatcher } from "svelte";
+    import { goto } from "$app/navigation";
 
     const questions = {
         first : {
@@ -62,7 +63,7 @@
             thirdQuestionVisible = false;
             setTimeout(() => {
                 secondQuestionVisible = true;
-            }, 1000);
+            }, 1300);
 
 
         } else if (questionNumber === 2) {
@@ -70,24 +71,22 @@
             thirdQuestionVisible = false;
             setTimeout(() => {
                 secondQuestionVisible = true;
-            }, 1000);
+            }, 1300);
 
         } else if (questionNumber === 3) {
             firstQuestionVisible = false;
             secondQuestionVisible = false;
             setTimeout(() => {
                 thirdQuestionVisible = true;
-            }, 1000);
+            }, 1300);
         }
 
         progressBarPercent.update(t => t += 25);
     }
 
-        const handleFormSubmit = () => {
-            const dispatch = createEventDispatcher();
-            dispatch("submit");
-        }
-
+    const handleFormSubmit = () => {
+        goto('/success');
+    }
 
 </script>
 
@@ -116,6 +115,8 @@
         questionText={questions.third.question} 
         formActionComponent={TextBoxThird} 
         disabled={thirdQuestionDisabled}
+        isBtn={false}
+        url={"/success"}
     />
 
 {/if}

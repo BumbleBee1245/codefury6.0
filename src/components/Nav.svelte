@@ -21,10 +21,11 @@
 
     const handleSignOut = () => {
         const auth = getAuth();
-        uid.set("")
-        isLoggedIn.update(() => false)
-        handleClick();
         auth.signOut()
+
+        uid.set("")
+        isLoggedIn.set(false)
+        handleClick();
         goto('/')
     }
 
@@ -49,7 +50,8 @@
     {#if menuIsOpen}
         <div class="menu" transition:fly={{duration: 300, easing: quintIn, x: 200}}>
             <ul class="text-dark">
-                <li class="text-dark"> <a href="/dashboard">Dashboard</a></li>
+                <li class="text-dark"> <a href="/" on:click={handleClick}>Home</a></li>
+                <li class="text-dark"> <a href="/dashboard" on:click={handleClick}>Dashboard</a></li>
                 <li> <a href="/">My Profile</a></li>
                 {#if loggedIn}
                     <button class="btn" on:click={handleSignOut} id="logout">Logout</button>

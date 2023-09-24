@@ -6,6 +6,7 @@
 
     import { first, second, third, progressBarPercent} from "../../store";
     import { createEventDispatcher } from "svelte";
+    import { goto } from "$app/navigation";
 
     const questions = {
         first : {
@@ -83,8 +84,7 @@
     }
 
         const handleFormSubmit = () => {
-            const dispatch = createEventDispatcher();
-            dispatch("submit");
+            goto('/success');
         }
 
 
@@ -115,6 +115,8 @@
         questionText={questions.third.question} 
         formActionComponent={TextBoxThird} 
         disabled={thirdQuestionDisabled}
+        isBtn={false}
+        url={'/success'}
     />
 
 {/if}

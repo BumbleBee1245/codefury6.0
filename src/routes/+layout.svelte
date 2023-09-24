@@ -10,21 +10,21 @@
     import cfg from "../firebase/config"
     import { goto } from "$app/navigation";
 
+    const app = initializeApp(cfg)
+    const auth = getAuth(app);
 
     onMount(() => {
-        const app = initializeApp(cfg)
-        const auth = getAuth();
-        console.log(auth);
         onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                goto('/')
-                isLoggedIn.update(() => false)
+            if (user) {
+                console.log(user)
+                uid.set(user.uid)
+                isLoggedIn.set(true)
             } else {
-                isLoggedIn.update(() => true)
+                isLoggedIn.set(false)
+                goto('/')
             }
         })
     })
-
 
 </script>
 

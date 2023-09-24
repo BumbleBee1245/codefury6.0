@@ -6,6 +6,7 @@
 
     import { first, second, third, progressBarPercent} from "../../store";
     import { createEventDispatcher } from "svelte";
+    import { goto } from "$app/navigation";
 
 
     const questions = {
@@ -77,14 +78,14 @@
             setTimeout(() => {
                 thirdQuestionVisible = true;
             }, 1300);
+            thirdQuestionVisible = true;
         }
 
         progressBarPercent.update(t => t += 25);
     }
 
         const handleFormSubmit = () => {
-            const dispatch = createEventDispatcher();
-            dispatch("submit");
+            goto('/')
         }
 
 
